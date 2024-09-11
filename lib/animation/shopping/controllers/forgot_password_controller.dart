@@ -273,7 +273,7 @@ class ForgotPasswordController extends GetxController {
   Future<void> sendResetCode() async {
     if (formKey.currentState!.validate()) {
       var response = await http.post(
-        Uri.parse('http://192.168.137.146:8000/api/forgot-password/email'),
+        Uri.parse('http://192.168.1.5:8000/api/forgot-password/email'),
         body: {'email': emailTE.text},
       );
 

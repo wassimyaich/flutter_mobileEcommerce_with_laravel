@@ -70,7 +70,7 @@ class ShippingAddress {
     print("Items to be sent with shipping address: $items"); // Debugging print
 
     final response = await http.post(
-      Uri.parse('http://192.168.137.146:8000/api/shipping-addresses'),
+      Uri.parse('http://192.168.1.5:8000/api/shipping-addresses'),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',

@@ -62,8 +62,8 @@ class Cart {
 
   // Base URL for the API
   static const String apiUrl =
-      // 'http://192.168.137.146:8000/api/carts'; // Update this URL if necessary
-      'http://192.168.137.146:8000/api/carts'; // Update this URL if necessary
+      // 'http://192.168.1.5:8000/api/carts'; // Update this URL if necessary
+      'http://192.168.1.5:8000/api/carts'; // Update this URL if necessary
 
   static Future<List<Cart>> getDummyList() async {
     try {

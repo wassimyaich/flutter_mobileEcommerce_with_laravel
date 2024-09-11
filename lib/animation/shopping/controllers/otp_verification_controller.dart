@@ -20,7 +20,7 @@ class OTPVerificationController extends GetxController {
     }
 
     // Replace with your API URL
-    final url = 'http://192.168.137.146:8000/api/verify-otp';
+    final url = 'http://192.168.1.5:8000/api/verify-otp';
 
     try {
       // Make a POST request to verify OTP

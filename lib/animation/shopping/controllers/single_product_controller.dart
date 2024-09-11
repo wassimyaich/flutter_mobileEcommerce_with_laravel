@@ -251,7 +251,7 @@ class SingleProductController extends GetxController {
   // Future<void> addToCart() async {
   //   try {
   //     final url =
-  //         'http://192.168.137.146:8000/api/carts'; // Replace with your API URL
+  //         'http://192.168.1.5:8000/api/carts'; // Replace with your API URL
 
   //     final prefs = await SharedPreferences.getInstance();
   //     final token = prefs.getString('token');
@@ -293,8 +293,8 @@ class SingleProductController extends GetxController {
   Future<void> addToCart() async {
     try {
       final url =
-          // 'http://192.168.137.146:8000/api/carts'; // Replace with your API URL
-          'http://192.168.137.146:8000/api/carts'; // Replace with your API URL
+          // 'http://192.168.1.5:8000/api/carts'; // Replace with your API URL
+          'http://192.168.1.5:8000/api/carts'; // Replace with your API URL
 
       final prefs = await SharedPreferences.getInstance();
       final token = prefs.getString('token');

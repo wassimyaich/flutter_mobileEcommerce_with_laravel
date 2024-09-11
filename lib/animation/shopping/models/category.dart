@@ -71,8 +71,8 @@ class Category {
 
   static Future<http.Response> getData() async {
     final url =
-        // 'http://192.168.137.146:8000/api/categories'; // Replace with your API URL
-        'http://192.168.137.146:8000/api/categories'; // Replace with your API URL
+        // 'http://192.168.1.5:8000/api/categories'; // Replace with your API URL
+        'http://192.168.1.5:8000/api/categories'; // Replace with your API URL
 
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');

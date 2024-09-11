@@ -293,7 +293,7 @@
 //   Future<void> resetPassword() async {
 //     // Sending HTTP POST request to reset password API
 //     var response = await http.post(
-//       Uri.parse('http://192.168.137.146:8000/api/password/reset'),
+//       Uri.parse('http://192.168.1.5:8000/api/password/reset'),
 //       body: {
 //         'email':
 //             email, // Use the email from the ForgotPasswordController (not defined here)
@@ -425,7 +425,7 @@ class ResetPasswordController extends GetxController {
   Future<void> resetPassword() async {
     // Sending HTTP POST request to reset password API
     var response = await http.post(
-      Uri.parse('http://192.168.137.146:8000/api/password/reset'),
+      Uri.parse('http://192.168.1.5:8000/api/password/reset'),
       body: {
         'email':
             email, // Use the email from the ForgotPasswordController (not defined here)

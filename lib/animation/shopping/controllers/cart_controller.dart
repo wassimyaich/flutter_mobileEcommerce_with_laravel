@@ -126,7 +126,7 @@ class CartController extends GetxController {
       SharedPreferences preferences = await SharedPreferences.getInstance();
       String? token = preferences.getString('token') ?? '';
       var response = await http.post(
-        Uri.parse('http://192.168.137.146:8000/api/updatecarts'),
+        Uri.parse('http://192.168.1.5:8000/api/updatecarts'),
         headers: {
           'Authorization': 'Bearer $token', // Include the auth token if needed
           'Content-Type': 'application/json',
@@ -151,7 +151,7 @@ class CartController extends GetxController {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
     final response = await http.delete(
-      Uri.parse('http://192.168.137.146:8000/api/carts/delete/$cartId'),
+      Uri.parse('http://192.168.1.5:8000/api/carts/delete/$cartId'),
       headers: {
         'Authorization': 'Bearer $token',
         'Content-Type': 'application/json',
