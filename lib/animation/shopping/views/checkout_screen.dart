@@ -22,7 +22,12 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   late ThemeData theme;
 
   late CheckOutController controller;
-
+  // Boolean to toggle between address list and form
+  bool showAddressForm = false;
+  // Controllers for the form fields
+  TextEditingController nameController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -93,13 +98,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           Row(
             children: [
               Icon(
-                shippingAddress.icon,
+                LucideIcons.home,
                 size: 20,
                 color: theme.colorScheme.onBackground.withAlpha(220),
               ),
               MySpacing.width(12),
               MyText.bodyMedium(
-                shippingAddress.type,
+                shippingAddress.paymentMethod,
                 fontWeight: 700,
               ),
               MySpacing.width(12),
@@ -142,13 +147,57 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           ),
           MySpacing.height(4),
           MyText.bodySmall(
-            shippingAddress.number,
+            shippingAddress.phone,
             fontWeight: 600,
           ),
           MySpacing.height(8),
           MyText.bodySmall(
             shippingAddress.address,
             muted: true,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget buildShippingAddressForm() {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        children: [
+          TextField(
+            controller: nameController,
+            decoration: InputDecoration(labelText: 'Name'),
+          ),
+          TextField(
+            controller: addressController,
+            decoration: InputDecoration(labelText: 'Address'),
+          ),
+          TextField(
+            controller: phoneController,
+            decoration: InputDecoration(labelText: 'Phone Number'),
+            keyboardType: TextInputType.phone,
+          ),
+          MySpacing.height(20),
+          ElevatedButton(
+            onPressed: () {
+              ShippingAddress newAddress = ShippingAddress(
+                id: DateTime.now().millisecondsSinceEpoch,
+                name: nameController.text,
+                address: addressController.text,
+                phone: phoneController.text,
+                email: '', // Add if needed
+                paymentMethod: '', // Add if needed
+                isDefault: true, items: [],
+              );
+
+              // Add new address to the list and switch back to the address list view
+              controller.addressList.add(newAddress);
+              setState(() {
+                showAddressForm = false;
+              });
+            },
+            child: Text('Save Address'),
           ),
         ],
       ),
@@ -210,6 +259,70 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         });
   }
 
+  // Widget shippingInfo() {
+  //   return Container(
+  //     padding: MySpacing.x(20),
+  //     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+  //       MyText.labelLarge(
+  //         'Select delivery address',
+  //         fontWeight: 600,
+  //       ),
+  //       // MySpacing.height(20),
+  //       // ...controller.addressList!
+  //       //     .map((shippingAddress) =>
+  //       //         _buildSingleShippingAddress(shippingAddress))
+  //       //     .toList(),
+  //       Row(
+  //         children: [
+  //           MyButton(
+  //             padding: MySpacing.xy(16, 16),
+  //             onPressed: () {
+  //               //  here Shipping Address
+  //             },
+  //             borderRadiusAll: 4,
+  //             elevation: 0,
+  //             splashColor: theme.colorScheme.primary.withAlpha(30),
+  //             backgroundColor: theme.colorScheme.primaryContainer,
+  //             child: Row(
+  //               mainAxisSize: MainAxisSize.min,
+  //               children: [
+  //                 Icon(
+  //                   LucideIcons.plus,
+  //                   color: theme.colorScheme.primary,
+  //                   size: 18,
+  //                 ),
+  //                 MySpacing.width(8),
+  //                 MyText.labelMedium(
+  //                   'Shipping Address',
+  //                   color: theme.colorScheme.primary,
+  //                   fontWeight: 600,
+  //                 ),
+  //               ],
+  //             ),
+  //           ),
+  //           MySpacing.width(20),
+  //           Expanded(
+  //             child: MyButton(
+  //               padding: MySpacing.y(18),
+  //               onPressed: () {
+  //                 controller.nextPage();
+  //               },
+  //               borderRadiusAll: 4,
+  //               elevation: 0,
+  //               splashColor: theme.colorScheme.onPrimary.withAlpha(30),
+  //               backgroundColor: theme.colorScheme.primary,
+  //               child: MyText.labelMedium(
+  //                 'Proceed to Payment',
+  //                 color: theme.colorScheme.onPrimary,
+  //                 fontWeight: 600,
+  //               ),
+  //             ),
+  //           ),
+  //         ],
+  //       ),
+  //     ]),
+  //   );
+  // }
   Widget shippingInfo() {
     return Container(
       padding: MySpacing.x(20),
@@ -219,56 +332,70 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           fontWeight: 600,
         ),
         MySpacing.height(20),
-        ...controller.addressList!
-            .map((shippingAddress) =>
-                _buildSingleShippingAddress(shippingAddress))
-            .toList(),
-        Row(
-          children: [
-            MyButton(
-              padding: MySpacing.xy(16, 16),
-              onPressed: () {},
-              borderRadiusAll: 4,
-              elevation: 0,
-              splashColor: theme.colorScheme.primary.withAlpha(30),
-              backgroundColor: theme.colorScheme.primaryContainer,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
+        // If showAddressForm is true, show the form, otherwise show the address list
+        showAddressForm
+            ? buildShippingAddressForm()
+            : Column(
                 children: [
-                  Icon(
-                    LucideIcons.plus,
-                    color: theme.colorScheme.primary,
-                    size: 18,
-                  ),
-                  MySpacing.width(8),
-                  MyText.labelMedium(
-                    'Shipping Address',
-                    color: theme.colorScheme.primary,
-                    fontWeight: 600,
+                  ...controller.addressList
+                      .map((shippingAddress) =>
+                          _buildSingleShippingAddress(shippingAddress))
+                      .toList(),
+                  MySpacing.height(20),
+                  Row(
+                    children: [
+                      MyButton(
+                        padding: MySpacing.xy(16, 16),
+                        onPressed: () {
+                          // Switch to the form view
+                          setState(() {
+                            showAddressForm = true;
+                          });
+                        },
+                        borderRadiusAll: 4,
+                        elevation: 0,
+                        splashColor: theme.colorScheme.primary.withAlpha(30),
+                        backgroundColor: theme.colorScheme.primaryContainer,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(
+                              LucideIcons.plus,
+                              color: theme.colorScheme.primary,
+                              size: 18,
+                            ),
+                            MySpacing.width(8),
+                            MyText.labelMedium(
+                              'Shipping Address',
+                              color: theme.colorScheme.primary,
+                              fontWeight: 600,
+                            ),
+                          ],
+                        ),
+                      ),
+                      MySpacing.width(20),
+                      Expanded(
+                        child: MyButton(
+                          padding: MySpacing.y(18),
+                          onPressed: () {
+                            controller.nextPage();
+                          },
+                          borderRadiusAll: 4,
+                          elevation: 0,
+                          splashColor:
+                              theme.colorScheme.onPrimary.withAlpha(30),
+                          backgroundColor: theme.colorScheme.primary,
+                          child: MyText.labelMedium(
+                            'Proceed to Payment',
+                            color: theme.colorScheme.onPrimary,
+                            fontWeight: 600,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
-            ),
-            MySpacing.width(20),
-            Expanded(
-              child: MyButton(
-                padding: MySpacing.y(18),
-                onPressed: () {
-                  controller.nextPage();
-                },
-                borderRadiusAll: 4,
-                elevation: 0,
-                splashColor: theme.colorScheme.onPrimary.withAlpha(30),
-                backgroundColor: theme.colorScheme.primary,
-                child: MyText.labelMedium(
-                  'Proceed to Payment',
-                  color: theme.colorScheme.onPrimary,
-                  fontWeight: 600,
-                ),
-              ),
-            ),
-          ],
-        ),
       ]),
     );
   }
@@ -483,8 +610,32 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           ),
           MySpacing.height(20),
           MyButton.block(
-            onPressed: () {
-              controller.nextPage();
+            onPressed: () async {
+              // controller.nextPage();
+              String phone = phoneController.text;
+              String address = addressController.text;
+
+              // Get selected payment method
+              String paymentMethod = controller.paymentMethodSelected == 1
+                  ? 'Credit Card'
+                  : 'Cash on Delivery';
+
+              // Call createShippingAddress method
+              try {
+                ShippingAddress newAddress =
+                    await ShippingAddress.createShippingAddress(
+                  phone,
+                  address,
+                  paymentMethod,
+                );
+
+                // If successful, navigate or show confirmation
+                Get.snackbar(
+                    "Success", "Shipping address created successfully");
+                controller.nextPage(); // Proceed to order confirmation
+              } catch (e) {
+                Get.snackbar("Error", "Failed to create shipping address: $e");
+              }
             },
             borderRadiusAll: 4,
             elevation: 0,

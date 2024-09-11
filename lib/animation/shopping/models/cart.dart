@@ -51,17 +51,19 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Cart {
+  int id;
   Product product;
   String selectedSize;
   int quantity;
   Color selectedColor;
 
-  Cart(this.product, this.selectedSize, this.quantity, this.selectedColor);
+  Cart(this.id, this.product, this.selectedSize, this.quantity,
+      this.selectedColor);
 
   // Base URL for the API
   static const String apiUrl =
-      // 'http://192.168.1.5:8000/api/carts'; // Update this URL if necessary
-      'http://192.168.1.5:8000/api/carts'; // Update this URL if necessary
+      // 'http://192.168.137.146:8000/api/carts'; // Update this URL if necessary
+      'http://192.168.137.146:8000/api/carts'; // Update this URL if necessary
 
   static Future<List<Cart>> getDummyList() async {
     try {
@@ -83,12 +85,14 @@ class Cart {
   }
 
   static Future<Cart> fromJson(Map<String, dynamic> jsonObject) async {
+    int id = _parseInt(jsonObject['id']);
+
     Product product = Product.fromJson(jsonObject['product']);
     String selectedSize = jsonObject['selected_size'].toString();
     int quantity = int.parse(jsonObject['quantity'].toString());
     Color selectedColor = jsonObject['selected_color'].toString().toColor;
 
-    return Cart(product, selectedSize, quantity, selectedColor);
+    return Cart(id, product, selectedSize, quantity, selectedColor);
   }
 
   static Future<List<Cart>> getListFromJson(List<dynamic> jsonArray) async {
@@ -113,5 +117,32 @@ class Cart {
     // Make the GET request with the headers
     final response = await http.get(Uri.parse(apiUrl), headers: headers);
     return response;
+  }
+
+  Map<String, dynamic> toMap() => {
+        'id': product.id, // Assuming product has an id property
+        'quantity': quantity,
+      };
+  static Future<List<Map<String, dynamic>>> getCartItems() async {
+    // final List<Cart> cartList =
+    //     await getDummyList(); // Or your actual method to get cart items
+
+    // return cartList.map((cart) => cart.toMap()).toList();
+    final List<Cart> cartList = await getDummyList();
+    final items = cartList.map((cart) => cart.toMap()).toList();
+    print("Mapped cart items: $items"); // Debugging print
+    return items;
+  }
+
+  static int _parseInt(dynamic value, [int defaultValue = 0]) {
+    if (value == null) {
+      return defaultValue;
+    }
+    try {
+      return int.parse(value.toString());
+    } catch (e) {
+      print('Error parsing int: $value, Error: $e');
+      return defaultValue;
+    }
   }
 }

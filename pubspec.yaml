@@ -53,7 +53,7 @@ dependencies:
   flutter_localization: ^0.2.2
   flutter_feather_icons: ^2.0.0+1
   image_field: ^0.0.10
-
+  validators: ^3.0.0
 
 
 

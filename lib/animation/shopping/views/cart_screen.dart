@@ -93,6 +93,15 @@ class _CartScreenState extends State<CartScreen> with TickerProviderStateMixin {
                             borderRadiusAll: 2,
                             color: cart.selectedColor,
                             child: Container()),
+                        MySpacing.width(30),
+                        IconButton(
+                          icon: Icon(Icons.delete, size: 28, color: Colors.red),
+                          onPressed: () {
+                            controller.removeProductFromCart(cart.id);
+                            // Implement logic to remove the cart item
+                            // This might involve updating controller.carts
+                          },
+                        ),
                       ],
                     ),
                   ],
@@ -122,7 +131,8 @@ class _CartScreenState extends State<CartScreen> with TickerProviderStateMixin {
                   ),
                   MySpacing.height(8),
                   MyText.bodyMedium(
-                    cart.quantity.toString(),
+                    cart.quantity
+                        .toString(), //////////////////////////////////////////////////////////////////////////////////
                     fontWeight: 700,
                   ),
                   MySpacing.height(8),

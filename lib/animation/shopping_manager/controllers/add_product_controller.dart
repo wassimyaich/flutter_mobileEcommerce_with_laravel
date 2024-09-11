@@ -62,7 +62,7 @@
 //       return;
 //     }
 
-//     final url = 'http://192.168.1.5:8000/api/admin/products';
+//     final url = 'http://192.168.137.146:8000/api/admin/products';
 //     final prefs = await SharedPreferences.getInstance();
 //     final token = prefs.getString('token') ?? '';
 
@@ -169,7 +169,7 @@ class AddProductController extends GetxController {
   //     return;
   //   }
 
-  //   final url = 'http://192.168.1.5:8000/api/admin/products';
+  //   final url = 'http://192.168.137.146:8000/api/admin/products';
   //   final prefs = await SharedPreferences.getInstance();
   //   final token = prefs.getString('token') ?? '';
 
@@ -212,8 +212,8 @@ class AddProductController extends GetxController {
       return;
     }
 
-    // final url = 'http://192.168.1.5:8000/api/admin/products';
-    final url = 'http://192.168.1.5:8000/api/admin/products';
+    // final url = 'http://192.168.137.146:8000/api/admin/products';
+    final url = 'http://192.168.137.146:8000/api/admin/products';
 
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token') ?? '';

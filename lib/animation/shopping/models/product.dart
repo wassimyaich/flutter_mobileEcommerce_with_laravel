@@ -26,7 +26,7 @@ class Product {
 
 // Base URL for images
   static const String baseUrls =
-      'http://192.168.1.5:8000/storage/'; // Update this URL if necessary
+      'http://192.168.137.146:8000/storage/'; // Update this URL if necessary
   // Getter to construct the full URL for the image
   String get imageUrls => '$baseUrls$image';
 
@@ -109,7 +109,7 @@ class Product {
 
   // Base URL for images
   static const String baseUrl =
-      'http://192.168.1.5:8000/storage/'; // Update this URL if necessary
+      'http://192.168.137.146:8000/storage/'; // Update this URL if necessary
 
   // Getter to construct the full URL for the image
   String get imageUrl => '$baseUrl$image';
@@ -126,8 +126,8 @@ class Product {
   // Fetch product data from API
   static Future<http.Response> getData() async {
     final url =
-        // 'http://192.168.1.5:8000/api/products'; // Replace with your API URL
-        'http://192.168.1.5:8000/api/products'; // Replace with your API URL
+        // 'http://192.168.137.146:8000/api/products'; // Replace with your API URL
+        'http://192.168.137.146:8000/api/products'; // Replace with your API URL
 
     // Retrieve the Bearer token from shared preferences
     final prefs = await SharedPreferences.getInstance();

@@ -15,15 +15,17 @@ class CheckOutController extends GetxController {
   int numPages = 3;
   int paymentMethodSelected = 1;
   ShippingAddress? addressSelected;
-  List<ShippingAddress>? addressList;
+  // List<ShippingAddress>? addressList;
 
   List<Tab> tabs = [];
 
   @override
   void onInit() {
     currentPage = 0;
-    addressList = ShippingAddress.shipping();
-    addressSelected = addressList!.first;
+    // addressList = ShippingAddress.shipping();
+    // addressSelected = addressList!.first;
+    fetchShippingAddresses();
+
     tabs = [
       Tab('Shipping', Icons.local_shipping_outlined),
       Tab('Payment', Icons.payment),
@@ -89,5 +91,18 @@ class CheckOutController extends GetxController {
   void dispose() {
     if (pageController.hasClients) pageController.dispose();
     super.dispose();
+  }
+
+////////////////////////
+  RxList<ShippingAddress> addressList = <ShippingAddress>[].obs;
+  Rx<ShippingAddress?> selectedAddress = Rx<ShippingAddress?>(null);
+  RxInt selectedPaymentMethod = 1.obs;
+
+  void fetchShippingAddresses() {
+    // This would fetch addresses dynamically (e.g., from an API)
+  }
+
+  void proceedToPayment() {
+    // Logic to proceed to payment screen
   }
 }

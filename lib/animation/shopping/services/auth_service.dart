@@ -4,9 +4,9 @@ import '../models/user.dart';
 
 class AuthService {
   final String baseUrl =
-      // 'http://192.168.1.5:8000/api'; // Replace with your Laravel API URL
+      // 'http://192.168.137.146:8000/api'; // Replace with your Laravel API URL
 
-      'http://192.168.1.5:8000/api'; // Replace with your Laravel API URL
+      'http://192.168.137.146:8000/api'; // Replace with your Laravel API URL
 
   Future<Map<String, dynamic>?> register(
       String name, String email, String password) async {

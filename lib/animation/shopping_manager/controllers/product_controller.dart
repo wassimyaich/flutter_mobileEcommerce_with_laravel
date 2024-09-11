@@ -57,7 +57,7 @@ class ProductController extends GetxController {
   // }
 
   Future<void> updateProduct() async {
-    final url = 'http://192.168.1.5:8000/api/admin/products/${product.id}';
+    final url = 'http://192.168.137.146:8000/api/admin/products/${product.id}';
     final body = {
       'name': nameTE.text,
       'description': descriptionTE.text,
@@ -114,7 +114,7 @@ class ProductController extends GetxController {
     }
 
     final url =
-        'http://192.168.1.5:8000/api/admin/products/${product.id}/image';
+        'http://192.168.137.146:8000/api/admin/products/${product.id}/image';
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token') ?? '';
 

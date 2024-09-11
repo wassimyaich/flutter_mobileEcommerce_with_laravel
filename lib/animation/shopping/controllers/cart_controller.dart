@@ -3,6 +3,10 @@ import 'package:flutkit/animation/shopping/shopping_constants.dart';
 import 'package:flutkit/animation/shopping/views/checkout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+// import 'package:flutkit/animation/shopping/models/cart.dart';
+import 'dart:convert';
 
 class CartController extends GetxController {
   TickerProvider ticker;
@@ -108,8 +112,58 @@ class CartController extends GetxController {
   }
 
   Future<void> goToCheckout() async {
+    // Ensure all cart quantities are saved before proceeding to checkout
+    for (Cart cart in carts) {
+      await updateCartQuantity(cart); // Save each updated cart item
+    }
     animationController.forward();
     await Future.delayed(Duration(seconds: 1));
     Get.to(CheckOutScreen());
+  }
+
+  Future<void> updateCartQuantity(Cart cart) async {
+    try {
+      SharedPreferences preferences = await SharedPreferences.getInstance();
+      String? token = preferences.getString('token') ?? '';
+      var response = await http.post(
+        Uri.parse('http://192.168.137.146:8000/api/updatecarts'),
+        headers: {
+          'Authorization': 'Bearer $token', // Include the auth token if needed
+          'Content-Type': 'application/json',
+        },
+        body: json.encode({
+          'cart_id': cart.id,
+          'quantity': cart.quantity,
+        }),
+      );
+
+      if (response.statusCode == 200) {
+        print('Cart quantity updated successfully');
+      } else {
+        print('Failed to update cart quantity');
+      }
+    } catch (e) {
+      print('Error updating cart: $e');
+    }
+  }
+
+  Future<void> removeProductFromCart(int cartId) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    final response = await http.delete(
+      Uri.parse('http://192.168.137.146:8000/api/carts/delete/$cartId'),
+      headers: {
+        'Authorization': 'Bearer $token',
+        'Content-Type': 'application/json',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      print('Product removed from cart');
+    } else if (response.statusCode == 404) {
+      print('Product not found in cart');
+    } else {
+      throw Exception('Failed to remove product from cart');
+    }
   }
 }

@@ -152,20 +152,12 @@ class _SearchScreenState extends State<SearchScreen>
   }
 
   Widget _buildBody() {
-    /* if (controller.uiLoading) {
-      return Scaffold(
-          body: Padding(
-        padding: MySpacing.top(MySpacing.safeAreaTop(context) + 20),
-        child:
-            LoadingEffect.getSearchLoadingScreen(context, theme, theme.colorScheme),
-      ));
-    } else {*/
     return Scaffold(
       key: controller.scaffoldKey,
       endDrawer: endDrawer(),
       body: ListView(
-        padding:
-            MySpacing.fromLTRB(20, MySpacing.safeAreaTop(context) + 20, 20, 20),
+        padding: EdgeInsets.fromLTRB(
+            20, MySpacing.safeAreaTop(context) + 20, 20, 20),
         children: [
           Row(
             children: [
@@ -176,22 +168,26 @@ class _SearchScreenState extends State<SearchScreen>
                   decoration: InputDecoration(
                     hintText: "Search your product ...",
                     hintStyle: MyTextStyle.bodySmall(
-                        color: theme.colorScheme.onBackground),
+                      color: theme.colorScheme.onBackground,
+                    ),
                     border: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(4),
-                        ),
-                        borderSide: BorderSide.none),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(4),
+                      ),
+                      borderSide: BorderSide.none,
+                    ),
                     enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(4),
-                        ),
-                        borderSide: BorderSide.none),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(4),
+                      ),
+                      borderSide: BorderSide.none,
+                    ),
                     focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(
-                          Radius.circular(4),
-                        ),
-                        borderSide: BorderSide.none),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(4),
+                      ),
+                      borderSide: BorderSide.none,
+                    ),
                     filled: true,
                     fillColor: theme.cardTheme.color,
                     prefixIcon: Icon(
@@ -207,7 +203,7 @@ class _SearchScreenState extends State<SearchScreen>
                   },
                 ),
               ),
-              MySpacing.width(20),
+              SizedBox(width: 20),
               MyContainer(
                 paddingAll: 12,
                 borderRadiusAll: 4,
@@ -223,25 +219,34 @@ class _SearchScreenState extends State<SearchScreen>
               ),
             ],
           ),
-          MySpacing.height(20),
+          SizedBox(height: 20),
           GridView.builder(
-              padding: MySpacing.zero,
-              shrinkWrap: true,
-              itemCount: controller.products!.length,
-              physics: ClampingScrollPhysics(),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: controller.findAspectRatio(),
-                mainAxisSpacing: 20,
-                crossAxisSpacing: 20,
+            padding: EdgeInsets.zero,
+            shrinkWrap: true,
+            itemCount: controller.visibleProducts.length,
+            physics: ClampingScrollPhysics(),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              childAspectRatio: controller.findAspectRatio(),
+              mainAxisSpacing: 20,
+              crossAxisSpacing: 20,
+            ),
+            itemBuilder: (BuildContext context, int index) {
+              return _buildSingleProduct(controller.visibleProducts[index]);
+            },
+          ),
+          if (controller.visibleProducts.length < controller.products!.length)
+            Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  controller.loadMore();
+                },
+                child: Text("Load More"),
               ),
-              itemBuilder: (BuildContext context, int index) {
-                return _buildSingleProduct(controller.products![index]);
-              }),
+            ),
         ],
       ),
     );
-    // }
   }
 
   Widget endDrawer() {
@@ -386,54 +391,6 @@ class _SearchScreenState extends State<SearchScreen>
     );
   }
 
-  // List<Widget> _buildType() {
-  //   List<Widget> choices = [];
-  //   for (var item in controller.categoryList) {
-  //     bool selected = controller.selectedChoices.contains(item);
-  //     if (selected) {
-  //       choices.add(MyContainer.none(
-  //           color: theme.colorScheme.primary.withAlpha(28),
-  //           bordered: true,
-  //           borderRadiusAll: 20,
-  //           paddingAll: 8,
-  //           border: Border.all(color: theme.colorScheme.primary),
-  //           onTap: () {
-  //             controller.removeChoice(item);
-  //           },
-  //           child: Row(
-  //             mainAxisSize: MainAxisSize.min,
-  //             children: [
-  //               Icon(
-  //                 Icons.check,
-  //                 size: 14,
-  //                 color: theme.colorScheme.primary,
-  //               ),
-  //               MySpacing.width(6),
-  //               MyText.bodySmall(
-  //                 item,
-  //                 fontSize: 11,
-  //                 color: theme.colorScheme.primary,
-  //               )
-  //             ],
-  //           )));
-  //     } else {
-  //       choices.add(MyContainer.none(
-  //         color: theme.cardTheme.color,
-  //         borderRadiusAll: 20,
-  //         padding: MySpacing.xy(12, 8),
-  //         onTap: () {
-  //           controller.addChoice(item);
-  //         },
-  //         child: MyText.bodySmall(
-  //           item,
-  //           color: theme.colorScheme.onBackground,
-  //           fontSize: 11,
-  //         ),
-  //       ));
-  //     }
-  //   }
-  //   return choices;
-  // }
   List<Widget> _buildType() {
     List<Widget> choices = [];
     for (var item in controller.categoryList) {
