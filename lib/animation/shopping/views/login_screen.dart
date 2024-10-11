@@ -172,55 +172,6 @@ class _LogInScreenState extends State<LogInScreen>
                     ),
                   ),
                 ),
-                // MySpacing.height(20),
-                // Row(
-                //   children: [
-                //     Expanded(child: Divider()),
-                //     Padding(
-                //       padding: MySpacing.x(16),
-                //       child: MyText.bodySmall(
-                //         'Continue with',
-                //         muted: true,
-                //         fontSize: 10,
-                //         fontWeight: 600,
-                //       ),
-                //     ),
-                //     Expanded(child: Divider()),
-                //   ],
-                // ),
-                // MySpacing.height(20),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //   children: [
-                //     MyContainer.bordered(
-                //       padding: MySpacing.all(16),
-                //       borderRadiusAll: 4,
-                //       child: Image(
-                //         height: 20,
-                //         width: 20,
-                //         image: AssetImage(Images.google),
-                //       ),
-                //     ),
-                //     MyContainer.bordered(
-                //       padding: MySpacing.all(16),
-                //       borderRadiusAll: 4,
-                //       child: Image(
-                //         height: 20,
-                //         width: 20,
-                //         image: AssetImage(Images.apple),
-                //       ),
-                //     ),
-                //     MyContainer.bordered(
-                //       padding: MySpacing.all(16),
-                //       borderRadiusAll: 4,
-                //       child: Image(
-                //         height: 20,
-                //         width: 20,
-                //         image: AssetImage(Images.facebook),
-                //       ),
-                //     ),
-                //   ],
-                // ),
                 MySpacing.height(20),
                 Center(
                   child: MyButton.text(

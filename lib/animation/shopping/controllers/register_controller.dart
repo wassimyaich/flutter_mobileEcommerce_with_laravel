@@ -142,58 +142,6 @@ class RegisterController extends GetxController {
     super.dispose();
   }
 
-  // Future<void> register() async {
-  //   passwordCounter = 0;
-  //   nameCounter = 0;
-  //   emailCounter = 0;
-  //   if (formKey.currentState!.validate()) {
-  //     arrowController.forward();
-  //     await Future.delayed(Duration(milliseconds: 500));
-  //     Get.off(SplashScreen2());
-  //     // Navigator.of(context, rootNavigator: true).pushReplacement(
-  //     //   MaterialPageRoute(
-  //     //     builder: (context) => SplashScreen2(),
-  //     //   ),
-  //     // );
-  //   }
-  // }
-  // Future<void> register() async {
-  //   passwordCounter = 0;
-  //   nameCounter = 0;
-  //   emailCounter = 0;
-
-  //   if (formKey.currentState!.validate()) {
-  //     arrowController.forward();
-  //     await Future.delayed(Duration(milliseconds: 500));
-
-  //     try {
-  //       // Call the AuthService register method
-  //       User? user = await authService.register(
-  //         nameTE.text,
-  //         emailTE.text,
-  //         passwordTE.text,
-  //       );
-
-  //       if (user != null) {
-  //         // Registration successful, navigate to the splash screen
-  //         print('User: ${user.name}');
-
-  //         SharedPreferences preferences = await SharedPreferences.getInstance();
-
-  //         await preferences.setString('name', user.name);
-  //         await preferences.setString('email', user.email);
-
-  //         Get.off(SplashScreen2());
-  //       } else {
-  //         // Handle registration failure (optional)
-  //         Get.snackbar('Registration Failed', 'Please try again.');
-  //       }
-  //     } catch (e) {
-  //       // Handle exceptions and show error message
-  //       Get.snackbar('Error', e.toString());
-  //     }
-  //   }
-  // }
   Future<void> register() async {
     passwordCounter = 0;
     nameCounter = 0;

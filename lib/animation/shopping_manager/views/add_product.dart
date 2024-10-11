@@ -204,30 +204,6 @@ class AddProductScreen extends StatelessWidget {
     });
   }
 
-  // Widget categoryDropdown(AddProductController controller) {
-  //   return Obx(() {
-  //     return DropdownButtonFormField<Category>(
-  //       value: controller.selectedCategory.value,
-  //       items: controller.categories.map((category) {
-  //         return DropdownMenuItem<Category>(
-  //           value: category,
-  //           child: Text(category.name),
-  //         );
-  //       }).toList(),
-  //       onChanged: (Category? newCategory) {
-  //         controller.selectedCategory.value = newCategory;
-  //       },
-  //       decoration: InputDecoration(
-  //         hintStyle: MyTextStyle.bodySmall(
-  //             color: AppTheme.shoppingManagerTheme.colorScheme.onBackground),
-  //         border: OutlineInputBorder(borderRadius: BorderRadius.circular(4)),
-  //         filled: true,
-  //         fillColor: AppTheme.shoppingManagerTheme.cardTheme.color,
-  //         isDense: true,
-  //       ),
-  //     );
-  //   });
-  // }
   Widget categoryDropdown(AddProductController controller) {
     return Obx(() {
       return DropdownButtonFormField<Category>(
