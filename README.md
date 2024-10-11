@@ -2,7 +2,18 @@
 
 This project is a cross-platform mobile application built with Flutter, connected to a Laravel backend that leverages Sanctum for secure user authentication.
 Table of Contents
+Languages:
+  * Laravel
+  * JavaScript
+  * HTML
+  * CSS
 
+Frameworks:
+  * Flutter
+
+Tools:
+  * Git
+    
 Installation
 Getting Started
 Features
